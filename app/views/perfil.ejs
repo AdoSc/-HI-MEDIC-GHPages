@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html style="height:100%; width:100%">
+<%- include("templates/header")%>
+    <body style="height:100%; width:100%">
+    
+    <table style="height:100%; width:100%">
+        <tr style="height:100% width:100%">
+            <td valign="top" bgcolor="#2F3E50" width="15%" style="padding-top:2%">
+                <div align="center" style="padding-top:20px"><a href="/Perfil" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Perfil</a></div>
+                <% if(tipoUsuarioActivo=="M"){ %>
+                    <div align="center" style="padding-top:20px"><a href="/PanelMedico" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Panel Medico</a></div>
+                <% }else if(tipoUsuarioActivo=="P"){ %>
+                    <div align="center" style="padding-top:20px"><a href="/MisCitas" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Mis Citas</a></div>
+                    <div align="center" style="padding-top:20px"><a href="/MiDiagnostico" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Mi Diagnóstico</a></div>
+                <% }else if(tipoUsuarioActivo=="S"){ %>
+                    <div align="center" style="padding-top:20px"><a href="/PanelSecretaria" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Panel de control</a></div>
+                <% } %>
+                <div align="center" style="padding-top:20px"><a href="/" class="btn btn-danger btn-sm col-sm-12" style="font-size:16px;">Cerrar sesión</a></div>
+            </td>
+            
+            <td valign="top" style="height:100%;">
+            
+        
+        <script>
+            function Discapacidad(respuesta){
+                if(respuesta==1){
+                    document.getElementById('div-DescripcionDiscapacidad').style.display='block';
+                }else{
+                    document.getElementById('div-DescripcionDiscapacidad').style.display='none';
+                }
+            }
+        </script>
+        
+        <div class="container-md">
+            <div class="row justify-content-center align-items-center g-1 p-8">
+                <h3 class="display-5"><img src="HerramientaDoctor.png" alt="" width="120px">Mi perfil</h3>
+                <div class="card">
+    <!--                <div class="card-header"><h5><% if(tipoUsuarioActivo=="M"){ %>Médico<% }else if(tipoUsuarioActivo=="P"){ %>Paciente<% }else if(tipoUsuarioActivo=="S"){ %>Secretario/a<% } %>: <%= apellidos %> <%= nombres %>, CI: <%= ced %></h5></div>-->
+                    <div class="card-header"><h5 align="right"><%= apellidos %> <%= nombres %><br />CI: <%= ced %></h5></div>
+                    <div class="card-body">
+                        <div class="row">
+                        
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                                <% if(datosGuardados == 1){ %>
+                                                    <div align="center" class="container container-btn pt-1 mx-auto" style="background-color:green; color:white;">
+                                                        <p>¡Cambios guardados!</p>
+                                                    </div>
+                                                <% } %>
+                                        <strong>Mis datos personales</strong>
+                                        <div class="table-responsive">
+                                        
+                                            <form action="/ModificarPerfil" method="post" id="ModificarPerfil">
+                                                <!--Datos desactivados sólo para mostrar-->
+                                                <div class="form-group">
+                                                    <label class="title pb-1" for="CedulaD">Cédula</label>
+                                                    <input type="text" class="form-control" id="CedulaD" value="<%= datosp[0].Cedula %>" placeholder="Introduzca cédula" name="CedulaD" disabled required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pb-1" for="ApellidosD">Apellidos</label>
+                                                    <input type="text" class="form-control" id="ApellidosD" value="<%= datosp[0].Apellidos %>" placeholder="Introduzca Apellidos" name="ApellidosD" disabled required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pb-1" for="NombresD">Nombres</label>
+                                                    <input type="text" class="form-control" id="NombresD" value="<%= datosp[0].Nombres %>" placeholder="Introduzca Nombres" name="NombresD" disabled required>
+                                                </div>
+                                                <!--Fin datos desactivados sólo para mostrar-->
+                                                
+                                                <!--Datos ocultos sólo para mostrar-->
+                                                <div class="form-group" hidden>
+                                                    <label class="title pb-1" for="Cedula">Cédula</label>
+                                                    <input type="text" class="form-control" id="Cedula" value="<%= datosp[0].Cedula %>" placeholder="Introduzca cédula" name="Cedula" required>
+                                                </div>
+                                                <div class="form-group" hidden>
+                                                    <label class="title pb-1" for="Apellidos">Apellidos</label>
+                                                    <input type="text" class="form-control" id="Apellidos" value="<%= datosp[0].Apellidos %>" placeholder="Introduzca Apellidos" name="Apellidos" required>
+                                                </div>
+                                                <div class="form-group" hidden>
+                                                    <label class="title pb-1" for="Nombres">Nombres</label>
+                                                    <input type="text" class="form-control" id="Nombres" value="<%= datosp[0].Nombres %>" placeholder="Introduzca Nombres" name="Nombres" required>
+                                                </div>
+                                                <!--Fin datos ocultos sólo para mostrar-->
+                                                
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Correo">Correo</label>
+                                                    <input type="text" class="form-control" id="Correo" value="<%= datosp[0].Correo %>" placeholder="Introduzca Correo" name="Correo" required>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Contrasena">Contraseña</label>
+                                                    <input type="password" class="form-control" id="Contrasena" value="<%= datosp[0].Contrasena %>" placeholder="Introduzca contraseña" name="Contrasena" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Nacimiento">Fecha de nacimiento</label>
+                                                    <input type="date" class="form-control" id="Nacimiento" value="<%= datosp[0].Nacimiento %>" name="Nacimiento" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Sexo">Sexo</label>
+                                                    <select class="form-control" id="Sexo" name="Sexo" required>
+                                                            <option value=<%= datosp[0].Sexo %> selected hidden><% if(datosp[0].Sexo=="M"){ %>
+                                                                                                                                Masculino
+                                                                                                                           <% }else if(datosp[0].Sexo=="F"){ %>
+                                                                                                                                Femenino
+                                                                                                                           <% }else{ %>
+                                                                                                                                No definido
+                                                                                                                           <% } %></option>
+                                                            <option value="M">Masculino</option>
+                                                            <option value="F">Femenino</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Telefono">Teléfono</label>
+                                                    <input type="text" class="form-control" id="Telefono" value="<%= datosp[0].Telefono %>" placeholder="Introduzca Telefono" name="Telefono">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="EstadoCivil">Estado civil</label>
+                                                    <select class="form-control" id="EstadoCivil" name="EstadoCivil" required>
+                                                            <option value=<%= datosp[0].EstadoCivil %> selected hidden><% if(datosp[0].EstadoCivil=="S"){ %>
+                                                                                                                                        Soltero/a
+                                                                                                                                   <% }else if(datosp[0].EstadoCivil=="C"){ %>
+                                                                                                                                        Casado/a
+                                                                                                                                   <% }else if(datosp[0].EstadoCivil=="D"){ %>
+                                                                                                                                        Divorciado/a
+                                                                                                                                   <% }else if(datosp[0].EstadoCivil=="V"){ %>
+                                                                                                                                        Viudo/a
+                                                                                                                                   <% }else{ %>
+                                                                                                                                        No definido
+                                                                                                                                   <% } %></option>
+                                                            <option value="S">Soltero/a</option>
+                                                            <option value="C">Casado/a</option>
+                                                            <option value="D">Divorciado/a</option>
+                                                            <option value="V">Viudo/a</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <% if(datosp[0].TipoUsuario!="P" && datosp[0].TipoUsuario!="S"){ %>
+                                                    <div class="form-group" hidden>
+                                                        <label class="title pt-2 pb-1" for="TipoUsuario">Privilegio</label>
+                                                        <select class="form-control" id="TipoUsuario" name="TipoUsuario" required>
+                                                                <option value=<%= datosp[0].TipoUsuario %> selected hidden><% if(datosp[0].TipoUsuario=="P"){ %>
+                                                                                                                                            Paciente
+                                                                                                                                      <% }else if(datosp[0].TipoUsuario=="M"){ %>
+                                                                                                                                            Médico/a
+                                                                                                                                      <% }else if(datosp[0].TipoUsuario=="S"){ %>
+                                                                                                                                            Secretario/a
+                                                                                                                                      <% }else if(datosp[0].TipoUsuario=="PM"){ %>
+                                                                                                                                            Paciente y Médico/a
+                                                                                                                                      <% }else if(datosp[0].TipoUsuario=="PS"){ %>
+                                                                                                                                            Paciente y Secretario/a
+                                                                                                                                      <% }else if(datosp[0].TipoUsuario=="MS"){ %>
+                                                                                                                                            Médico/a y Secretario/a
+                                                                                                                                      <% }else if(datosp[0].TipoUsuario=="PMS"){ %>
+                                                                                                                                            Paciente, Médico/a y Secretario/a
+                                                                                                                                      <% }else{ %>
+                                                                                                                                            No definido
+                                                                                                                                      <% } %></option>
+                                                                <option value="P">Paciente</option>
+                                                                <option value="M">Médico/a</option>
+                                                                <option value="S">Secretario/a</option>
+                                                                <option value="PM">Paciente y Médico/a</option>
+                                                                <option value="PS">Paciente y Secretario/a</option>
+                                                                <option value="MS">Médico/a y Secretario/a</option>
+                                                                <option value="PMS">Paciente, Médico/a y Secretario/a</option>
+                                                        </select>
+                                                    </div>
+                                                <% }else{ %>
+                                                    <div class="form-group" hidden>
+                                                        <label class="title pt-2 pb-1" for="TipoUsuario">Cargo</label>
+                                                        <select class="form-control" id="TipoUsuario" name="TipoUsuario" required>
+                                                                <option value=<%= datosp[0].TipoUsuario %> selected hidden><% if(datosp[0].TipoUsuario=="P"){ %>
+                                                                                                                                Paciente
+                                                                                                                           <% }else if(datosp[0].TipoUsuario=="S"){ %>
+                                                                                                                                Secretario/a
+                                                                                                                           <% } %></option>
+                                                        </select>
+                                                    </div>
+                                                <% } %>
+        <!--                                        
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Discapacidad">¿Tiene alguna discapacidad?</label>
+                                                    <select class="form-control" id="Discapacidad" name="Discapacidad" onchange="{Discapacidad(this);}" required>
+                                                            <option value=False>No</option>
+                                                            <option value=True>Sí</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" id="div-DescripcionDiscapacidad" style="display:none">
+                                                    <label class="title pt-2 pb-1" for="DescripcionDiscapacidad">Descripción de discapacidad</label>
+                                                    <textarea class="form-control" id="DescripcionDiscapacidad" placeholder="Describa su discapacidad" name="DescripcionDiscapacidad" required></textarea>
+                                                </div>
+                                                -->
+                                                <br />
+                                                <div class="container container-btn pt-1 mx-auto" align="center">
+                                                    <button type="submit" class="btn btn-primary col-sm-12" form="ModificarPerfil" value="ModificarPerfil"
+                                                        style="margin-right: 10px !important;">Guardar cambios</button>
+                                                </div>
+                                                
+                                            </form>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--SIGNOS VITALES-->
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <strong>Mis signos vitales</strong>
+                                        <div class="table-responsive">
+                                            <form action="/ModificarPerfil" method="post" id="ModificarPerfil">
+                                                <div class="form-group">
+                                                    <label class="title pb-1" for="PresionArtSistolica">Presion arterial sistólica</label>
+                                                    <input type="text" class="form-control" id="PresionArtSistolica" value="<%= datosp[0].PresionArtSistolica %>" name="PresionArtSistolica" disabled required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pb-1" for="PresionArtDiastolica">Presion arterial diastólica</label>
+                                                    <input type="text" class="form-control" id="PresionArtDiastolica" value="<%= datosp[0].PresionArtDiastolica %>" name="PresionArtDiastolica" disabled required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pb-1" for="Temperatura">Temperatura en grados celsius</label>
+                                                    <input type="text" class="form-control" id="Temperatura" value="<%= datosp[0].Temperatura %>" name="Temperatura" disabled required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Estatura">Estatura en metros</label>
+                                                    <input type="text" class="form-control" id="Estatura" value="<%= datosp[0].Estatura %>" name="Estatura" disabled required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="title pt-2 pb-1" for="Peso">Peso en kg</label>
+                                                    <input type="text" class="form-control" id="Peso" value="<%= datosp[0].Peso %>" name="Peso" disabled required>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FIN SIGNOS VITALES-->
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </td>
+        </tr>
+    </table>
+
+<%- include("templates/footer")%>
+    </body>
+</html>

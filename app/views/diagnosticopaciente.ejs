@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html style="height:100%; width:100%">
+<%- include("templates/header")%>
+    <body style="height:100%; width:100%">
+    
+    <table style="height:100%; width:100%">
+        <tr style="height:100%; width:100%">
+            <td valign="top" bgcolor="#2F3E50" width="15%" style="padding-top:2%">
+                <div align="center" style="padding-top:20px"><a href="/Perfil" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Perfil</a></div>
+                <div align="center" style="padding-top:20px"><a href="/MisCitas" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Mis Citas</a></div>
+                <div align="center" style="padding-top:20px"><a href="/MiDiagnostico" class="btn btn-sm col-sm-12" style="background-color:#40566E; font-size:20px; color:white">Mi Diagnóstico</a></div>
+                <div align="center" style="padding-top:20px"><a href="/" class="btn btn-danger btn-sm col-sm-12" style="font-size:16px;">Cerrar sesión</a></div>
+            </td>
+            
+            <td valign="top" style="height:100%;">
+            
+        <div class="container-md">
+            <div class="row justify-content-center align-items-center g-1 p-8">
+                <h3 class="display-5"><img src="HerramientaDoctor.png" alt="" width="120px">Mi diagnóstico</h3>
+                <div class="card">
+    <!--                <div class="card-header"><h5><% if(tipoUsuarioActivo=="M"){ %>Médico<% }else if(tipoUsuarioActivo=="P"){ %>Paciente<% }else if(tipoUsuarioActivo=="S"){ %>Secretario/a<% } %>: <%= apellidos %> <%= nombres %>, CI: <%= ced %></h5></div>-->
+                    <div class="card-header"><h5 align="right"><%= apellidos %> <%= nombres %><br />CI: <%= ced %></h5></div>
+                    <div class="card-body">
+                        <div class="row">
+                        
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <strong>Mi historial de diagnósticos</strong>
+                                        <div class="table-responsive">
+                                            <table class="table table-secondary">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Motivo de Cita</th>
+                    <!--                                    <th scope="col">Antecedentes</th>-->
+                                                        <th scope="col">Descripcion</th>
+                                                        <th scope="col">Prescripcion</th>
+                                                        <th scope="col">Médico</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if (datosd.length != 0){ %>
+                                                        <% datosd.forEach((diagnostico)=>{ %>
+                                                            <tr class="">
+                                                                <td scope="row"><%= diagnostico.MotivoCita %></td>
+                    <!--                                            <td><%= diagnostico.Antecedentes %></td>-->
+                                                                <td><%= diagnostico.Descripcion %></td>
+                                                                <td><%= diagnostico.Prescripcion %></td>
+                                                                <td><%= diagnostico.NombresMedico %></td>
+                                                            </tr>
+                                                        <% })%>
+                                                    <% } else { %>
+                                                        <tr class="">
+                                                            <td scope="row" colspan="4"  class="text-center">No hay datos.</td>
+                                                        </tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </td>
+        </tr>
+    </table>
+
+<%- include("templates/footer")%>
+    </body>
+</html>
